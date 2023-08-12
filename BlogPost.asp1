@@ -4,7 +4,7 @@
 ---
 layout: post
 title: "<%= $PLASTER_PARAM_Title %>"
-subtitle: Please add a subtitle
+subtitle: "<%= $PLASTER_PARAM_SubTitleText %>"
 date: <%= $PLASTER_PARAM_Date %>
 readtime: true
 tags: [<%= $PLASTER_PARAM_Tags %>]
