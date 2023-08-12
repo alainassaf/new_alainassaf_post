@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<plasterManifest schemaVersion="1.0"
+  xmlns="http://www.microsoft.com/schemas/PowerShell/Plaster/v1">
+  <metadata>
+    <name>BlogPost</name>
+    <id>a22bb4ac-783a-40c1-beef-9ec4c89e378a</id>
+    <version>0.0.1</version>
+    <title>Blog Post Template</title>
+    <description>New draft blog post for alainassaf.com</description>
+    <author>Alain Assaf</author>
+    <tags>BlogPost</tags>
+  </metadata>
+  <parameters>
+    <parameter name="Title" type="text" prompt="Title of blog post" />
+    <parameter name="subtitle" type='choice' store='text' prompt="Include blog subtitle?" default='1'>
+      <choice label='&amp;Yes'
+              help='Adds a blog subtitle'
+              value='Yes' />
+      <choice label='&amp;No'
+              help='Does not add a blog subtitle'
+              value='No' />
+    </parameter>
+    <parameter name="BlogFileName" type="text" prompt="Blog File Name" default="$(${PLASTER_PARAM_Title}.replace(' ','-'))"/>
+    <parameter name="Tags" type="text" prompt="Tags" default=""/>
+    <parameter name="Date" type="text" prompt="Publish Date" default="$(get-date -Format yyyy-MM-dd)" />
+  </parameters>
+  <content>
+    <message>Creating blank post in /drafts folder</message>
+    <file source='' destination='_drafts'/>
+    <message condition='$PLASTER_PARAM_SubTitle -eq "Yes"'>Blog has subtitle</message>
+    <templateFile source="BlogPost_test.asp1"
+                  destination='_drafts\${PLASTER_PARAM_Date}-${PLASTER_PARAM_BlogFileName}.md'
+                  condition='$PLASTER_PARAM_SubTitle -eq "Yes"'/>
+    <message condition='$PLASTER_PARAM_SubTitle -eq "No"'>Blog does not have a subtitle</message>
+    <templateFile source="BlogPost_test.asp1"
+                  destination='_drafts\${PLASTER_PARAM_Date}-${PLASTER_PARAM_BlogFileName}.md'
+                  condition='$PLASTER_PARAM_SubTitle -eq "No"'/>
+    <message>Creating empty folder for images - /assets/img/${PLASTER_PARAM_BlogFileName}</message>
+    <file source ='' destination='$("../alainassaf.github.io/assets/img/${PLASTER_PARAM_BlogFileName}")'/>
+  </content>
+</plasterManifest>

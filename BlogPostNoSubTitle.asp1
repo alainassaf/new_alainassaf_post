@@ -1,0 +1,35 @@
+---
+layout: post
+title: "<%= $PLASTER_PARAM_Title %>"
+date: <%= $PLASTER_PARAM_Date %>
+readtime: true
+tags: [<%= $PLASTER_PARAM_Tags %>]
+cover-img: ["/assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-') %>/<%= ($PLASTER_PARAM_title).replace(' ','-') %>.jpg" : "Pixabay"]
+thumbnail-img: /assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-') %>/<%= ($PLASTER_PARAM_title).replace(' ','-') %>.jpg
+share-img: /assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-') %>/<%= ($PLASTER_PARAM_title).replace(' ','-') %>.jpg
+---
+
+<!--more-->
+
+# Contents
+
+* TOC
+{:toc}
+
+# Scenario
+
+
+# Body
+
+
+# Conclusion
+
+
+# Learning More
+
+
+### Value for Value
+If you received any value from reading this post, please help by becoming a [**supporter**](https://www.paypal.com/donate?hosted_button_id=73HNLGA2SGLLU).
+
+*Thanks for Reading,*
+*Alain Assaf*
