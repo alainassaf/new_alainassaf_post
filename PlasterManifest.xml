@@ -21,7 +21,7 @@
               value='No' />
     </parameter>
     <parameter name="SubTitleText" type="text" prompt="Enter blog post subtitle" condition='$PLASTER_PARAM_SubTitle -eq "Yes"' />
-    <parameter name="BlogFileName" type="text" prompt="Blog File Name" default="$(${PLASTER_PARAM_Title}.replace(' ','-').tolower())"/>
+    <parameter name="BlogFileName" type="text" prompt="Blog File Name" default="$(${PLASTER_PARAM_Title}.replace(' ','-').tolower())" />
     <parameter name="Tags" type="text" prompt="Tags" default=""/>
     <parameter name="Date" type="text" prompt="Publish Date" default="$(get-date -Format yyyy-MM-dd)" />
   </parameters>
