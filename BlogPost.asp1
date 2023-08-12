@@ -8,9 +8,9 @@ subtitle: Please add a subtitle
 date: <%= $PLASTER_PARAM_Date %>
 readtime: true
 tags: [<%= $PLASTER_PARAM_Tags %>]
-cover-img: ["/assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-') %>/<%= ($PLASTER_PARAM_title).replace(' ','-') %>.jpg" : "Pixabay"]
-thumbnail-img: /assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-') %>/<%= ($PLASTER_PARAM_title).replace(' ','-') %>.jpg
-share-img: /assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-') %>/<%= ($PLASTER_PARAM_title).replace(' ','-') %>.jpg
+cover-img: ["/assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-') %>/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>.jpg" : "Pixabay"]
+thumbnail-img: /assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-') %>/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>.jpg
+share-img: /assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-') %>/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>.jpg
 ---
 
 <!--more-->
@@ -46,9 +46,9 @@ title: "<%= $PLASTER_PARAM_Title %>"
 date: <%= $PLASTER_PARAM_Date %>
 readtime: true
 tags: [<%= $PLASTER_PARAM_Tags %>]
-cover-img: ["/assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-') %>/<%= ($PLASTER_PARAM_title).replace(' ','-') %>.jpg" : "Pixabay"]
-thumbnail-img: /assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-') %>/<%= ($PLASTER_PARAM_title).replace(' ','-') %>.jpg
-share-img: /assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-') %>/<%= ($PLASTER_PARAM_title).replace(' ','-') %>.jpg
+cover-img: ["/assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-') %>/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>.jpg" : "Pixabay"]
+thumbnail-img: /assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-') %>/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>.jpg
+share-img: /assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-') %>/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>.jpg
 ---
 
 <!--more-->

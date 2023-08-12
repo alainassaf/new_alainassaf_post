@@ -20,7 +20,7 @@
               help='Does not add a blog subtitle'
               value='No' />
     </parameter>
-    <parameter name="BlogFileName" type="text" prompt="Blog File Name" default="$(${PLASTER_PARAM_Title}.replace(' ','-'))"/>
+    <parameter name="BlogFileName" type="text" prompt="Blog File Name" default="$(${PLASTER_PARAM_Title}.replace(' ','-').tolower())"/>
     <parameter name="Tags" type="text" prompt="Tags" default=""/>
     <parameter name="Date" type="text" prompt="Publish Date" default="$(get-date -Format yyyy-MM-dd)" />
   </parameters>
