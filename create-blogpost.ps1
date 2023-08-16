@@ -17,6 +17,49 @@ $SplatExample = @{
 	Tags = "test,post"
 	Date = get-date -Format yyyy-MM-dd
 }
+.PARAMETER PathToGetPixabayImage
+Mandatory string parameter that is the full path to the get-pixabayimage.ps1 function.
+This function is used to query the Pixabay website (using REST api) for an image
+.PARAMETER ImageQuery
+Mandatory string parameter to use for the Pixabay image query
+.PARAMETER ImageCategory
+Mandatory string parameter used for the Pixabay image category.
+Must be one of the following values: 	backgrounds
+										fashion
+										nature
+										science
+										education
+										feelings
+										health
+										people
+										religion
+										places
+										animals
+										industry
+										computer
+										food
+										sports
+										transportation
+										travel
+										buildings
+										business
+										music
+.PARAMETER ImageColor
+Optional string parameter used for the Pixabay image color.
+Must be one of the following values: 	grayscale
+										transparent
+										red
+										orange
+										yellow
+										green
+										turquoise
+										blue
+										lilac
+										pink
+										white
+										gray
+										black
+										brown
 .EXAMPLE
 Create a hashtable with the Plaster manifest parameters.
 $plaster = @{
@@ -28,6 +71,8 @@ $plaster = @{
 	Tags = "test,post"
 	Date = get-date -Format yyyy-MM-dd
 }
+
+.\create-blogpost.ps1 -PlasterSplat $plaster -PathToGetPixabayImage $pathToFunc -ImageQuery "flowers" -ImageCategory "backgrounds" -ImageColor "red" -Verbose
 .INPUTS
 Hashtable with Plaster manifest variables
 .OUTPUTS
@@ -48,16 +93,77 @@ http: //www.linkedin.com/in/alainassaf/
 param (
 	[Parameter(Mandatory)]
 	[ValidateNotNullOrEmpty()]
-	[System.Collections.Hashtable]$PlasterSplat
+	[System.Collections.Hashtable]$PlasterSplat,
+
+	[Parameter(Mandatory)]
+	[ValidateNotNullOrEmpty()]
+	[string]$PathToGetPixabayImage,
+
+	[parameter(Mandatory)]
+	[ValidateNotNullOrEmpty()]
+	[string]$ImageQuery,
+
+	[Parameter(Mandatory)]
+	[ValidateSet("backgrounds", "fashion", "nature", "science", "education", "feelings", "health", "people", "religion", "places", "animals", "industry", "computer", "food", "sports", "transportation", "travel", "buildings", "business", "music")]
+	$ImageCategory,
+
+	[Parameter(Mandatory)]
+	[ValidateSet("grayscale", "transparent", "red", "orange", "yellow", "green", "turquoise", "blue", "lilac", "pink", "white", "gray", "black", "brown")]
+	$ImageColor
 )
 
-if (Test-Path $PlasterSplat.TemplatePath) {
-	if (Test-Path $PlasterSplat.DestinationPath) {
-		Write-Verbose "PlasterSplat param: $PlasterSplat"
-		Invoke-Plaster @PlasterSplat
+#region variables
+$datetime = Get-Date -Format "MM-dd-yyyy_HH-mm"
+$ScriptRunner = (Get-ChildItem env:username).value
+$compname = (Get-ChildItem env:COMPUTERNAME).value
+$scriptName = $MyInvocation.MyCommand.Name
+$currentDir = Split-Path $MyInvocation.MyCommand.Path
+#endregion
+
+# Check paths
+if (Test-Path $PathToGetPixabayImage) {
+	. $PathToGetPixabayImage
+	if (Test-Path $PlasterSplat.TemplatePath) {
+		if (Test-Path $PlasterSplat.DestinationPath) {
+			Write-Verbose "PlasterSplat param: $PlasterSplat"
+			# Create blog post template
+			Invoke-Plaster @PlasterSplat
+		} else {
+			Write-Warning "[$PlasterSplat.DestinationPath] not found"
+			exit 1
+		}
 	} else {
-		Write-Warning "[$PlasterSplat.DestinationPath] not found"
+		Write-Warning "[$PlasterSplat.TemplatePath] not found"
+		exit 1
 	}
 } else {
-	Write-Warning "[$PlasterSplat.TemplatePath] not found"
+	Write-Warning "[$PathToGetPixabayImage] not found"
+	exit 1
 }
+
+#Get name for main blog image
+$blogImageName = $plaster.Title.replace(' ', '-').tolower() + ".jpg"
+Write-Verbose "Main blog image name: [$blogImageName]"
+
+get-pixabayImage -query $ImageQuery -category $ImageCategory -color $ImageColor
+
+Start-Sleep -Seconds 5
+
+$BlogImage = Get-ChildItem -Path $currentDir -Filter "*.jpg"
+Write-Verbose "Found image: [$BlogImage]"
+
+$newImageName = Rename-Item -Path $BlogImage -NewName $blogImageName -PassThru
+$newImagePath = $PlasterSplat.DestinationPath + "\assets\img\" + $plaster.Title.Replace(' ', '-').tolower()
+
+if (Test-Path $newImagePath) {
+	Move-Item $newImageName.FullName -Destination $newImagePath
+} else {
+	Write-Warning "Cannot fine [$newImagePath]"
+}
+
+#End script info
+Write-Verbose "SCRIPT NAME: $scriptName"
+Write-Verbose "SCRIPT PATH: $currentDir"
+Write-Verbose "SCRIPT RUNTIME: $datetime"
+Write-Verbose "SCRIPT USER: $ScriptRunner"
+Write-Verbose "SCRIPT SYSTEM: $compname.$domain"
