@@ -17,7 +17,7 @@ $SplatExample = @{
 	Tags = "test,post"
 	Date = get-date -Format yyyy-MM-dd
 }
-.PARAMETER PathToGetPixabayImage
+.PARAMETER PathToGetPixabayFunction
 Mandatory string parameter that is the full path to the get-pixabayimage.ps1 function.
 This function is used to query the Pixabay website (using REST api) for an image
 .PARAMETER ImageQuery
@@ -72,18 +72,19 @@ $plaster = @{
 	Date = get-date -Format yyyy-MM-dd
 }
 
-.\create-blogpost.ps1 -PlasterSplat $plaster -PathToGetPixabayImage $pathToFunc -ImageQuery "flowers" -ImageCategory "backgrounds" -ImageColor "red" -Verbose
+.\create-blogpost.ps1 -PlasterSplat $plaster -PathToGetPixabayFunction $pathToFunc -ImageQuery "flowers" -ImageCategory "backgrounds" -ImageColor "red" -Verbose
 .INPUTS
 Hashtable with Plaster manifest variables
 .OUTPUTS
 None
 .NOTES
 NAME: create-blogpost.ps1
-VERSION: 0.0.1
+VERSION: 0.0.2
 CHANGE LOG - Version - When - What - Who
 0.0.1 - 08/12/2023 - Initial script - Alain Assaf
+0.0.2 - 09/11/2023 - Updated param for get-pixabayimage function - Alain Assaf
 AUTHOR: Alain Assaf
-LASTEDIT: August 12, 2023
+LASTEDIT: September 11, 2023
 .LINK
 http: //www.linkedin.com/in/alainassaf/
 #>
@@ -97,7 +98,7 @@ param (
 
 	[Parameter(Mandatory)]
 	[ValidateNotNullOrEmpty()]
-	[string]$PathToGetPixabayImage,
+	[string]$PathToGetPixabayFunction,
 
 	[parameter(Mandatory)]
 	[ValidateNotNullOrEmpty()]
@@ -121,23 +122,26 @@ $currentDir = Split-Path $MyInvocation.MyCommand.Path
 #endregion
 
 # Check paths
-if (Test-Path $PathToGetPixabayImage) {
-	. $PathToGetPixabayImage
+if (Test-Path $PathToGetPixabayFunction) {
+	. $PathToGetPixabayFunction
 	if (Test-Path $PlasterSplat.TemplatePath) {
 		if (Test-Path $PlasterSplat.DestinationPath) {
 			Write-Verbose "PlasterSplat param: $PlasterSplat"
 			# Create blog post template
 			Invoke-Plaster @PlasterSplat
-		} else {
+		}
+		else {
 			Write-Warning "[$PlasterSplat.DestinationPath] not found"
 			exit 1
 		}
-	} else {
+	}
+ else {
 		Write-Warning "[$PlasterSplat.TemplatePath] not found"
 		exit 1
 	}
-} else {
-	Write-Warning "[$PathToGetPixabayImage] not found"
+}
+else {
+	Write-Warning "[$PathToGetPixabayFunction] not found"
 	exit 1
 }
 
@@ -157,7 +161,8 @@ $newImagePath = $PlasterSplat.DestinationPath + "\assets\img\" + $plaster.Title.
 
 if (Test-Path $newImagePath) {
 	Move-Item $newImageName.FullName -Destination $newImagePath
-} else {
+}
+else {
 	Write-Warning "Cannot fine [$newImagePath]"
 }
 
