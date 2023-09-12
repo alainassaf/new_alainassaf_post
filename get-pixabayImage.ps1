@@ -1,4 +1,70 @@
 function get-pixabayImage {
+    <#
+    .SYNOPSIS
+    Uses Pixabay REST API to download an image from the Pixabay.com site
+    .DESCRIPTION
+    Uses Pixabay REST API to download an image from the Pixabay.com site. The script also saves the image's user for attribution.
+    .PARAMETER Query
+    Mandatory string parameter to use for the Pixabay image query
+    .PARAMETER Category
+    Mandatory string parameter used for the Pixabay image category.
+    Must be one of the following values: 	backgrounds
+                                            fashion
+                                            nature
+                                            science
+                                            education
+                                            feelings
+                                            health
+                                            people
+                                            religion
+                                            places
+                                            animals
+                                            industry
+                                            computer
+                                            food
+                                            sports
+                                            transportation
+                                            travel
+                                            buildings
+                                            business
+                                            music
+    .PARAMETER Color
+    Optional string parameter used for the Pixabay image color.
+    Must be one of the following values: 	grayscale
+                                            transparent
+                                            red
+                                            orange
+                                            yellow
+                                            green
+                                            turquoise
+                                            blue
+                                            lilac
+                                            pink
+                                            white
+                                            gray
+                                            black
+                                            brown
+    .PARAMETER apikey
+    Optional string parameter used to send your user apikey to Pixbay.
+    See https://pixabay.com/api/docs/
+    .EXAMPLE
+    get-pixabayImage -query computer -category computer -color green -Verbose
+    Query Pixabay with 'computer' and use the category computer and color green with additional feedback.
+    .INPUTS
+    None
+    .OUTPUTS
+    Image file (jpeg) from Pixabay and text file with image user for attribution.
+    .NOTES
+    NAME: get-pixabayImage.ps1
+    VERSION: 1.0.0
+    CHANGE LOG - Version - When - What - Who
+    1.0.0 - 09/12/2023 - Initial script - Alain Assaf
+    AUTHOR: Alain Assaf
+    LASTEDIT: September 12, 2023
+    .LINK
+    https://pixabay.com/api/docs/
+    http: //www.linkedin.com/in/alainassaf/
+    #>
     [CmdletBinding()]
     param (
         [parameter(Position = 0, Mandatory = $True )] 	
@@ -76,13 +142,25 @@ function get-pixabayImage {
         Break
     }
     else {
-        $picPath = Split-Path -parent $PSCommandPath
-        Write-Verbose "Filepath: [$PSScriptRoot]"
+        #$picPath = Split-Path -parent $PSCommandPath
         # Default items per page from pixabay is 20
         $randomHit = Get-Random -Minimum 1 -Maximum 20
         $img = $pixabay_query.hits[$randomHit]
-        #Invoke-WebRequest -Uri $img.webformatUrl -OutFile $picPath\$picFilename
+        #Image Info
+        Write-Verbose "Filepath: [$PSScriptRoot]"
+        $tmpURL = $img.pageURL
+        Write-Verbose "Pixabay url = [$tmpURL]"
+        $tmpTags = $img.tags
+        write-verbose "Tags: [$tmpTags]"
+        $tmpuser = $img.user
+        $tmpuserid = $img.user_id
+        Write-Verbose "Pixabay User URL = [https://pixabay.com/users/$tmpuser-$tmpuserid]"
+        #Get image and save user info for attribution
         Invoke-WebRequest -Uri $img.webformatUrl -OutFile .\$picFileName
+        #$tmpuser | Out-File -FilePath .\$picFileName.txt -Force
+        #$tmpuserid | Out-File -FilePath .\$picFilename.txt -Append
+        $tmpPixabayUser = $picFilename.split('.')[0] + "_pixabayUser.txt"
+        "https://pixabay.com/users/$tmpuser-$tmpuserid" | Out-File -FilePath .\$tmpPixabayUser -Append
         & ".\$picFileName"
     }   
     #End Script info
