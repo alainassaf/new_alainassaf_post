@@ -8,7 +8,7 @@ subtitle: "<%= $PLASTER_PARAM_SubTitleText %>"
 date: <%= $PLASTER_PARAM_Date %>
 readtime: true
 tags: [<%= $PLASTER_PARAM_Tags %>]
-cover-img: ["/assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>.jpg" : "Pixabay"]
+cover-img: ["/assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>.jpg" : "by [] via Pixabay"]
 thumbnail-img: /assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>.jpg
 share-img: /assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>.jpg
 ---
