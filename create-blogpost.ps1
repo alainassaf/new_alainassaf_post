@@ -79,12 +79,13 @@ Hashtable with Plaster manifest variables
 None
 .NOTES
 NAME: create-blogpost.ps1
-VERSION: 0.0.2
+VERSION: 1.0.0
 CHANGE LOG - Version - When - What - Who
 0.0.1 - 08/12/2023 - Initial script - Alain Assaf
 0.0.2 - 09/11/2023 - Updated param for get-pixabayimage function - Alain Assaf
+1.0.0 - 09/15/2023 - Added more comments - Alain Assaf
 AUTHOR: Alain Assaf
-LASTEDIT: September 11, 2023
+LASTEDIT: September 15, 2023
 .LINK
 http: //www.linkedin.com/in/alainassaf/
 #>
@@ -149,6 +150,7 @@ else {
 $blogImageName = $plaster.Title.replace(' ', '-').tolower() + ".jpg"
 Write-Verbose "Main blog image name: [$blogImageName]"
 
+#Query Pixabay for blog image
 get-pixabayImage -query $ImageQuery -category $ImageCategory -color $ImageColor
 
 Start-Sleep -Seconds 5
@@ -156,6 +158,7 @@ Start-Sleep -Seconds 5
 $BlogImage = Get-ChildItem -Path $currentDir -Filter "*.jpg"
 Write-Verbose "Found image: [$BlogImage]"
 
+#Rename and move image to blog location
 $newImageName = Rename-Item -Path $BlogImage -NewName $blogImageName -PassThru
 $newImagePath = $PlasterSplat.DestinationPath + "\assets\img\" + $plaster.Title.Replace(' ', '-').tolower()
 
