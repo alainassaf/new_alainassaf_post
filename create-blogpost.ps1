@@ -79,11 +79,12 @@ Hashtable with Plaster manifest variables
 None
 .NOTES
 NAME: create-blogpost.ps1
-VERSION: 1.0.0
+VERSION: 1.0.1
 CHANGE LOG - Version - When - What - Who
 0.0.1 - 08/12/2023 - Initial script - Alain Assaf
 0.0.2 - 09/11/2023 - Updated param for get-pixabayimage function - Alain Assaf
 1.0.0 - 09/15/2023 - Added more comments - Alain Assaf
+1.0.1 - 09/15/2023 - Made ImageColor optional param - Alain Assaf
 AUTHOR: Alain Assaf
 LASTEDIT: September 15, 2023
 .LINK
@@ -109,7 +110,7 @@ param (
 	[ValidateSet("backgrounds", "fashion", "nature", "science", "education", "feelings", "health", "people", "religion", "places", "animals", "industry", "computer", "food", "sports", "transportation", "travel", "buildings", "business", "music")]
 	$ImageCategory,
 
-	[Parameter(Mandatory)]
+	[Parameter()]
 	[ValidateSet("grayscale", "transparent", "red", "orange", "yellow", "green", "turquoise", "blue", "lilac", "pink", "white", "gray", "black", "brown")]
 	$ImageColor
 )
@@ -130,18 +131,15 @@ if (Test-Path $PathToGetPixabayFunction) {
 			Write-Verbose "PlasterSplat param: $PlasterSplat"
 			# Create blog post template
 			Invoke-Plaster @PlasterSplat
-		}
-		else {
+		} else {
 			Write-Warning "[$PlasterSplat.DestinationPath] not found"
 			exit 1
 		}
-	}
- else {
+	} else {
 		Write-Warning "[$PlasterSplat.TemplatePath] not found"
 		exit 1
 	}
-}
-else {
+} else {
 	Write-Warning "[$PathToGetPixabayFunction] not found"
 	exit 1
 }
@@ -151,7 +149,11 @@ $blogImageName = $plaster.Title.replace(' ', '-').tolower() + ".jpg"
 Write-Verbose "Main blog image name: [$blogImageName]"
 
 #Query Pixabay for blog image
-get-pixabayImage -query $ImageQuery -category $ImageCategory -color $ImageColor
+if ($ImageColor) {
+	get-pixabayImage -query $ImageQuery -category $ImageCategory -color $ImageColor
+} else {
+	get-pixabayImage -query $ImageQuery -category $ImageCategory
+}
 
 Start-Sleep -Seconds 5
 
@@ -164,8 +166,7 @@ $newImagePath = $PlasterSplat.DestinationPath + "\assets\img\" + $plaster.Title.
 
 if (Test-Path $newImagePath) {
 	Move-Item $newImageName.FullName -Destination $newImagePath
-}
-else {
+} else {
 	Write-Warning "Cannot fine [$newImagePath]"
 }
 
