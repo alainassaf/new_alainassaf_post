@@ -56,11 +56,13 @@ function get-pixabayImage {
     Image file (jpeg) from Pixabay and text file with image user for attribution.
     .NOTES
     NAME: get-pixabayImage.ps1
-    VERSION: 1.0.0
+    VERSION: 1.0.2
     CHANGE LOG - Version - When - What - Who
     1.0.0 - 09/12/2023 - Initial script - Alain Assaf
+    1.0.1 - 09/15/2023 - Add more params to API query - Alain Assaf
+    1.0.2 - 09/15/2023 - Add error check if less than 50 results - Alain Assaf
     AUTHOR: Alain Assaf
-    LASTEDIT: September 12, 2023
+    LASTEDIT: September 15, 2023
     .LINK
     https://pixabay.com/api/docs/
     http: //www.linkedin.com/in/alainassaf/
@@ -108,9 +110,10 @@ function get-pixabayImage {
             image_type  = "photo"
             orientation = "horizontal"
             safesearch  = $true
+            per_page    = 50
+            order       = "popular"
         }
-    }
-    else {
+    } else {
         $Body = @{
             key         = $apikey
             q           = $URLSearch
@@ -120,6 +123,8 @@ function get-pixabayImage {
             orientation = "horizontal"
             safesearch  = $true
             color       = $color
+            per_page    = 50
+            order       = "popular"
         }
     }
 
@@ -131,8 +136,7 @@ function get-pixabayImage {
 
     try {
         $pixabay_query = Invoke-RestMethod @splat
-    }
-    catch {
+    } catch {
         Write-Warning "Failed to query Pixabay"
         break
     }
@@ -140,12 +144,15 @@ function get-pixabayImage {
     if ($pixabay_query.totalHits -eq 0) {
         Write-Warning "No query results"
         Break
-    }
-    else {
-        #$picPath = Split-Path -parent $PSCommandPath
-        # Default items per page from pixabay is 20
-        $randomHit = Get-Random -Minimum 1 -Maximum 20
+    } else {
+        # Limiting query to 50 at a time. Choose a random number to pick an image.
+        if ($pixabay_query.totalHits -lt 50) {
+            $randomHit = Get-Random -Minimum 1 -Maximum $pixabay_query.totalHits
+        } else {
+            $randomHit = Get-Random -Minimum 1 -Maximum 50
+        }
         $img = $pixabay_query.hits[$randomHit]
+        
         #Image Info
         Write-Verbose "Filepath: [$PSScriptRoot]"
         $tmpURL = $img.pageURL
@@ -155,10 +162,9 @@ function get-pixabayImage {
         $tmpuser = $img.user
         $tmpuserid = $img.user_id
         Write-Verbose "Pixabay User URL = [https://pixabay.com/users/$tmpuser-$tmpuserid]"
+        
         #Get image and save user info for attribution
         Invoke-WebRequest -Uri $img.webformatUrl -OutFile .\$picFileName
-        #$tmpuser | Out-File -FilePath .\$picFileName.txt -Force
-        #$tmpuserid | Out-File -FilePath .\$picFilename.txt -Append
         $tmpPixabayUser = $picFilename.split('.')[0] + "_pixabayUser.txt"
         "https://pixabay.com/users/$tmpuser-$tmpuserid" | Out-File -FilePath .\$tmpPixabayUser -Append
         & ".\$picFileName"
