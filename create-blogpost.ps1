@@ -79,14 +79,15 @@ Hashtable with Plaster manifest variables
 None
 .NOTES
 NAME: create-blogpost.ps1
-VERSION: 1.0.1
+VERSION: 1.0.2
 CHANGE LOG - Version - When - What - Who
 0.0.1 - 08/12/2023 - Initial script - Alain Assaf
 0.0.2 - 09/11/2023 - Updated param for get-pixabayimage function - Alain Assaf
 1.0.0 - 09/15/2023 - Added more comments - Alain Assaf
 1.0.1 - 09/15/2023 - Made ImageColor optional param - Alain Assaf
+1.0.2 - 09/18/2023 - Fixed spelling - Alain Assaf
 AUTHOR: Alain Assaf
-LASTEDIT: September 15, 2023
+LASTEDIT: September 18, 2023
 .LINK
 http: //www.linkedin.com/in/alainassaf/
 #>
@@ -167,7 +168,7 @@ $newImagePath = $PlasterSplat.DestinationPath + "\assets\img\" + $plaster.Title.
 if (Test-Path $newImagePath) {
 	Move-Item $newImageName.FullName -Destination $newImagePath
 } else {
-	Write-Warning "Cannot fine [$newImagePath]"
+	Write-Warning "Cannot find [$newImagePath]"
 }
 
 #End script info
