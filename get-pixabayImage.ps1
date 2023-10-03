@@ -56,13 +56,14 @@ function get-pixabayImage {
     Image file (jpeg) from Pixabay and text file with image user for attribution.
     .NOTES
     NAME: get-pixabayImage.ps1
-    VERSION: 1.0.2
+    VERSION: 1.0.3
     CHANGE LOG - Version - When - What - Who
     1.0.0 - 09/12/2023 - Initial script - Alain Assaf
     1.0.1 - 09/15/2023 - Add more params to API query - Alain Assaf
     1.0.2 - 09/15/2023 - Add error check if less than 50 results - Alain Assaf
+    1.0.3 - 10/03/2023 - Made apikey mandatory - Alain Assaf
     AUTHOR: Alain Assaf
-    LASTEDIT: September 15, 2023
+    LASTEDIT: October 03, 2023
     .LINK
     https://pixabay.com/api/docs/
     http: //www.linkedin.com/in/alainassaf/
@@ -81,9 +82,9 @@ function get-pixabayImage {
         [ValidateSet("grayscale", "transparent", "red", "orange", "yellow", "green", "turquoise", "blue", "lilac", "pink", "white", "gray", "black", "brown")]
         $color,
 
-        #Pixabay apikey - alainassaf
-        [parameter(Mandatory = $false)]
-        [string]$apikey = "16095181-874ece02ee0c7869c6579cc63"
+        #Pixabay apikey
+        [parameter(Mandatory = $true)]
+        [string]$apikey
     )
     
     #region variables
