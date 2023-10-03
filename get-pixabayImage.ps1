@@ -56,34 +56,36 @@ function get-pixabayImage {
     Image file (jpeg) from Pixabay and text file with image user for attribution.
     .NOTES
     NAME: get-pixabayImage.ps1
-    VERSION: 1.0.3
+    VERSION: 1.0.4
     CHANGE LOG - Version - When - What - Who
     1.0.0 - 09/12/2023 - Initial script - Alain Assaf
     1.0.1 - 09/15/2023 - Add more params to API query - Alain Assaf
     1.0.2 - 09/15/2023 - Add error check if less than 50 results - Alain Assaf
     1.0.3 - 10/03/2023 - Made apikey mandatory - Alain Assaf
+    1.0.4 - 10/03/2023 - Updated parameter arguments syntax - Alain Assaf
     AUTHOR: Alain Assaf
     LASTEDIT: October 03, 2023
     .LINK
+    https://github.com/alainassaf/new_alainassaf_post
     https://pixabay.com/api/docs/
     http: //www.linkedin.com/in/alainassaf/
     #>
     [CmdletBinding()]
     param (
-        [parameter(Position = 0, Mandatory = $True )] 	
+        [parameter(Position = 0, Mandatory)] 	
         [ValidateNotNullOrEmpty()]
         [string]$query,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory)]
         [ValidateSet("backgrounds", "fashion", "nature", "science", "education", "feelings", "health", "people", "religion", "places", "animals", "industry", "computer", "food", "sports", "transportation", "travel", "buildings", "business", "music")]
         $category,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter()]
         [ValidateSet("grayscale", "transparent", "red", "orange", "yellow", "green", "turquoise", "blue", "lilac", "pink", "white", "gray", "black", "brown")]
         $color,
 
         #Pixabay apikey
-        [parameter(Mandatory = $true)]
+        [parameter(Mandatory)]
         [string]$apikey
     )
     
