@@ -79,16 +79,20 @@ Hashtable with Plaster manifest variables
 None
 .NOTES
 NAME: create-blogpost.ps1
-VERSION: 1.0.2
+VERSION: 1.0.4
 CHANGE LOG - Version - When - What - Who
 0.0.1 - 08/12/2023 - Initial script - Alain Assaf
 0.0.2 - 09/11/2023 - Updated param for get-pixabayimage function - Alain Assaf
 1.0.0 - 09/15/2023 - Added more comments - Alain Assaf
 1.0.1 - 09/15/2023 - Made ImageColor optional param - Alain Assaf
 1.0.2 - 09/18/2023 - Fixed spelling - Alain Assaf
+1.0.3 - 10/03/2023 - Updated parameter arguments syntax - Alain Assaf
+1.0.4 - 10/03/2023 - Selecting only latest jpg file - Alain Assaf
 AUTHOR: Alain Assaf
-LASTEDIT: September 18, 2023
+LASTEDIT: October 03, 2023
 .LINK
+https://github.com/alainassaf/new_alainassaf_post
+https://pixabay.com/api/docs/
 http: //www.linkedin.com/in/alainassaf/
 #>
 #Requires -Modules Plaster
@@ -113,7 +117,11 @@ param (
 
 	[Parameter()]
 	[ValidateSet("grayscale", "transparent", "red", "orange", "yellow", "green", "turquoise", "blue", "lilac", "pink", "white", "gray", "black", "brown")]
-	$ImageColor
+	$ImageColor,
+
+	#Pixabay apikey
+	[parameter(Mandatory)]
+	[string]$apikey
 )
 
 #region variables
@@ -151,14 +159,14 @@ Write-Verbose "Main blog image name: [$blogImageName]"
 
 #Query Pixabay for blog image
 if ($ImageColor) {
-	get-pixabayImage -query $ImageQuery -category $ImageCategory -color $ImageColor
+	get-pixabayImage -query $ImageQuery -category $ImageCategory -color $ImageColor -apikey $ApiKey
 } else {
-	get-pixabayImage -query $ImageQuery -category $ImageCategory
+	get-pixabayImage -query $ImageQuery -category $ImageCategory -apikey $ApiKey
 }
 
 Start-Sleep -Seconds 5
 
-$BlogImage = Get-ChildItem -Path $currentDir -Filter "*.jpg"
+$BlogImage = Get-ChildItem -Path $currentDir -Filter "*.jpg" | sort-object -Descending -Property LastWriteTime -Top 1
 Write-Verbose "Found image: [$BlogImage]"
 
 #Rename and move image to blog location
