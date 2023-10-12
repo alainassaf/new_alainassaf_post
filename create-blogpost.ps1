@@ -60,6 +60,8 @@ Must be one of the following values: 	grayscale
 										gray
 										black
 										brown
+.PARAMETER apikey
+Mandatory string parameter used to send your user apikey to Pixbay.
 .EXAMPLE
 Create a hashtable with the Plaster manifest parameters.
 $plaster = @{
@@ -72,14 +74,14 @@ $plaster = @{
 	Date = get-date -Format yyyy-MM-dd
 }
 
-.\create-blogpost.ps1 -PlasterSplat $plaster -PathToGetPixabayFunction $pathToFunc -ImageQuery "flowers" -ImageCategory "backgrounds" -ImageColor "red" -Verbose
+.\create-blogpost.ps1 -PlasterSplat $plaster -PathToGetPixabayFunction $pathToFunc -ImageQuery "flowers" -ImageCategory "backgrounds" -ImageColor "red" -apikey SOMEPIXABAYAPIKEY -Verbose
 .INPUTS
 Hashtable with Plaster manifest variables
 .OUTPUTS
 None
 .NOTES
 NAME: create-blogpost.ps1
-VERSION: 1.0.4
+VERSION: 1.0.5
 CHANGE LOG - Version - When - What - Who
 0.0.1 - 08/12/2023 - Initial script - Alain Assaf
 0.0.2 - 09/11/2023 - Updated param for get-pixabayimage function - Alain Assaf
@@ -88,8 +90,9 @@ CHANGE LOG - Version - When - What - Who
 1.0.2 - 09/18/2023 - Fixed spelling - Alain Assaf
 1.0.3 - 10/03/2023 - Updated parameter arguments syntax - Alain Assaf
 1.0.4 - 10/03/2023 - Selecting only latest jpg file - Alain Assaf
+1.0.5 - 10/12/2023 - Added APIkey param - Alain Assaf
 AUTHOR: Alain Assaf
-LASTEDIT: October 03, 2023
+LASTEDIT: October 12, 2023
 .LINK
 https://github.com/alainassaf/new_alainassaf_post
 https://pixabay.com/api/docs/
@@ -166,6 +169,7 @@ if ($ImageColor) {
 
 Start-Sleep -Seconds 5
 
+#Only use the latest image for the blog post.
 $BlogImage = Get-ChildItem -Path $currentDir -Filter "*.jpg" | sort-object -Descending -Property LastWriteTime -Top 1
 Write-Verbose "Found image: [$BlogImage]"
 
