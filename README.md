@@ -8,8 +8,6 @@ Creating and managing a blog can be a formidable task, demanding substantial tim
 
 **Date**: September, 20 2023
 
-**Time**: [Insert Time]
-
 ### Location
 
 - **In-person**: [Insert In-person Venue]
