@@ -17,10 +17,10 @@ Please see Meeting Attendance Info section below for important details for atten
 
 ## Meeting Description
 
-Alain will discuss his automation techniques for managing his blog, [alainassaf.com](https://alainassaf.com/). He’ll cover the evolution of his process, which includes transitioning from WordPress to local Jekyll development and ultimately incorporating Docker. Alain will share insights into how he utilizes automation to streamline article development and publication, including the use of REST APIs for image acquisition and other automated methods to enhance his content creation and posting workflow.
+Alain will discuss his automation techniques for managing his blog, [**alainassaf.com**](https://alainassaf.com/). He’ll cover the evolution of his process, which includes transitioning from WordPress to local Jekyll development and ultimately incorporating Docker. Alain will share insights into how he utilizes automation to streamline article development and publication, including the use of REST APIs for image acquisition and other automated methods to enhance his content creation and posting workflow.
 
 ## Speaker Info
 
-**Speaker**: Alain
+**Speaker**: Alain Assaf
 
-**Bio**: Alain is a highly experienced IT professional with a focus on virtualization platforms and automation tools. He has over 20 years of experience in various IT environments and currently works for a major credit union in North Carolina. Alain holds several certifications, including Citrix and Microsoft, and is actively involved in the Citrix community. You can find his insights and blogs on [LinkedIn](https://www.linkedin.com/in/alainassaf/) and [his website](https://alainassaf.com/), and he’s also active on Twitter [@alainassaf](https://twitter.com/alainassaf). Alain also maintains several repositories on [GitHub](https://github.com/alainassaf).
+**Bio**: Alain is a highly experienced IT professional with a focus on virtualization platforms and automation tools. He has over 20 years of experience in various IT environments and currently works for the second largest credit union in the United States. Alain holds several certifications, including Citrix and Microsoft, and is actively involved in the Citrix community. You can find his insights and blogs on [**LinkedIn**](https://www.linkedin.com/in/alainassaf/) and [**his website**](https://alainassaf.com/), and he’s also active on Twitter [**@alainassaf**](https://twitter.com/alainassaf). Alain also maintains several repositories on [**GitHub**](https://github.com/alainassaf).
