@@ -3,7 +3,8 @@ function get-pixabayImage {
     .SYNOPSIS
     Uses Pixabay REST API to download an image from the Pixabay.com site
     .DESCRIPTION
-    Uses Pixabay REST API to download an image from the Pixabay.com site. The script also saves the image's user for attribution.
+    Uses Pixabay REST API to download an image from the Pixabay.com site. 
+    The script also saves the image's user for attribution.
     .PARAMETER Query
     Mandatory string parameter to use for the Pixabay image query
     .PARAMETER Category
@@ -45,10 +46,10 @@ function get-pixabayImage {
                                             black
                                             brown
     .PARAMETER apikey
-    Optional string parameter used to send your user apikey to Pixbay.
-    See https://pixabay.com/api/docs/
+    Mandatory string parameter used to send your user apikey to Pixbay.
+    See https://pixabay.com/api/docs/ on how to create your own APIKey.
     .EXAMPLE
-    get-pixabayImage -query computer -category computer -color green -Verbose
+    get-pixabayImage -query computer -category computer -color green -apikey SOMEAPIKEYHERE -Verbose
     Query Pixabay with 'computer' and use the category computer and color green with additional feedback.
     .INPUTS
     None
