@@ -24,3 +24,9 @@ Alain will discuss his automation techniques for managing his blog, [**alainassa
 **Speaker**: Alain Assaf
 
 **Bio**: Alain is a highly experienced IT professional with a focus on virtualization platforms and automation tools. He has over 20 years of experience in various IT environments and currently works for the second largest credit union in the United States. Alain holds several certifications, including Citrix and Microsoft, and is actively involved in the Citrix community. You can find his insights and blogs on [**LinkedIn**](https://www.linkedin.com/in/alainassaf/) and [**his website**](https://alainassaf.com/), and he’s also active on Twitter [**@alainassaf**](https://twitter.com/alainassaf). Alain also maintains several repositories on [**GitHub**](https://github.com/alainassaf).
+
+# Files included in this repository
+* Create-BlogPost.ps1 - Invokes Plaster and gets an image from Pixabay to generate a blank blog post in my local Jekyll development environment.
+* Get-PixabayImage.ps1 - Makes a query using Pixabay's API to download an image (requires a Pixabay API key by creating an account on the site).
+* PlasterManifest.xml - Plaster template file that queries the user for info and generates files and folders in my local Jekyll development envrionment to start a draft blog post.
+* BlogPost.asp1 - Template file used by Plaster to generate a blank blog post.
