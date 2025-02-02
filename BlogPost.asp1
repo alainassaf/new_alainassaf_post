@@ -32,10 +32,11 @@ share-img: /assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>/
 # Learning More
 
 
-### Value for Value
-If you received any value from reading this post, please help by becoming a [**supporter**](https://www.paypal.com/donate?hosted_button_id=73HNLGA2SGLLU).
+# Value for Value
+If you received any value from reading this post, please [**buy me a coffee**](https://www.buymeacoffee.com/j72aXgIYJh){:target="_blank"} to show your support.
+<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="j72aXgIYJh" data-color="#16609f" data-emoji="☕"  data-font="Arial" data-text="Buy me a coffee" data-outline-color="#ffffff" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
 
-*Thanks for Reading,*
+*Thanks for Reading,*  
 *Alain Assaf*
 "@
     } else {
@@ -46,7 +47,7 @@ title: "<%= $PLASTER_PARAM_Title %>"
 date: <%= $PLASTER_PARAM_Date %>
 readtime: true
 tags: [<%= $PLASTER_PARAM_Tags %>]
-cover-img: ["/assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>.jpg" : "Pixabay"]
+cover-img: ["/assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>.jpg" : "by [] via Pixabay"]
 thumbnail-img: /assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>.jpg
 share-img: /assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>.jpg
 ---
@@ -70,10 +71,12 @@ share-img: /assets/img/<%= ($PLASTER_PARAM_title).replace(' ','-').tolower() %>/
 # Learning More
 
 
-### Value for Value
-If you received any value from reading this post, please help by becoming a [**supporter**](https://www.paypal.com/donate?hosted_button_id=73HNLGA2SGLLU).
+# Value for Value
+If you received any value from reading this post, please [**buy me a coffee**](https://www.buymeacoffee.com/j72aXgIYJh){:target="_blank"} to show your support.
+<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="j72aXgIYJh" data-color="#16609f" data-emoji="☕"  data-font="Arial" data-text="Buy me a coffee" data-outline-color="#ffffff" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
 
-*Thanks for Reading,*
+
+*Thanks for Reading,*  
 *Alain Assaf*
 "@
     }
